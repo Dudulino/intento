@@ -1,4 +1,5 @@
 // Variables globales
+let isZooming = false; // Agregar esta línea después de touchStartDistance = 0;
 let scene, camera, renderer, heartParticles;
 let animationPhase = 0; // 0: forming heart, 1: heart formed
 let formationProgress = 0;
@@ -438,7 +439,6 @@ const photoURLs = [
     });
 }
 
-// 🚀 Controles táctiles (para móviles)
 function setupTouchControls() {
     const container = document.getElementById('container');
     let lastTouchX = 0;
@@ -450,15 +450,18 @@ function setupTouchControls() {
             lastTouchY = event.touches[0].clientY;
             isDragging = true;
             autoRotationEnabled = false;
+            isZooming = false;
         } else if (event.touches.length === 2) {
             const dx = event.touches[0].clientX - event.touches[1].clientX;
             const dy = event.touches[0].clientY - event.touches[1].clientY;
             touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+            isDragging = false;
+            isZooming = true;
         }
     });
 
     container.addEventListener('touchmove', (event) => {
-        if (event.touches.length === 1 && isDragging) {
+        if (event.touches.length === 1 && isDragging && !isZooming) {
             const deltaX = event.touches[0].clientX - lastTouchX;
             const deltaY = event.touches[0].clientY - lastTouchY;
 
@@ -470,7 +473,7 @@ function setupTouchControls() {
 
             lastTouchX = event.touches[0].clientX;
             lastTouchY = event.touches[0].clientY;
-        } else if (event.touches.length === 2) {
+        } else if (event.touches.length === 2 && isZooming) {
             const dx = event.touches[0].clientX - event.touches[1].clientX;
             const dy = event.touches[0].clientY - event.touches[1].clientY;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -484,9 +487,19 @@ function setupTouchControls() {
         }
     });
 
-    container.addEventListener('touchend', () => {
-        isDragging = false;
-        autoRotationEnabled = true;
+    container.addEventListener('touchend', (event) => {
+        if (event.touches.length === 0) {
+            isDragging = false;
+            isZooming = false;
+            autoRotationEnabled = true;
+            touchStartDistance = 0;
+        } else if (event.touches.length === 1) {
+            isZooming = false;
+            isDragging = true;
+            autoRotationEnabled = false;
+            lastTouchX = event.touches[0].clientX;
+            lastTouchY = event.touches[0].clientY;
+        }
     });
 }
 
