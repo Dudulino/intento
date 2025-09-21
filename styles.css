@@ -1,0 +1,730 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000; /* Fondo completamente negro */
+    overflow: hidden;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+#container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: grab;
+}
+
+#container:active {
+    cursor: grabbing;
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--duration) infinite ease-in-out;
+    animation-delay: var(--delay);
+}
+
+.progress-container {
+    position: absolute;
+    bottom: 50px;
+    width: 300px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    z-index: 25;
+    opacity: 0.7;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ff2a6d, #d40078);
+    border-radius: 4px;
+    transition: width 0.3s ease-out;
+}
+
+
+.i-love-you-meteor {
+    position: absolute;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff2a6d;
+    text-shadow: 0 0 10px rgba(255, 42, 109, 0.8);
+    z-index: 15;
+    pointer-events: none;
+    opacity: 0;
+    font-family: 'Arial Black', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.impact-effect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,42,109,0.8) 0%, rgba(255,42,109,0) 70%);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+}
+
+.completion-message {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    color: #ff2a6d;
+    font-size: 1.5rem;
+    z-index: 30;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 1s ease;
+    text-shadow: 0 0 10px rgba(255, 42, 109, 0.8);
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 2px;
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 3.5rem; /* Tamaño más grande */
+    z-index: 30;
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    
+    /* 🌈 Animación de colores que coincide con tu corazón */
+    animation: rainbowTitle 6s ease-in-out infinite, pulseTitle 3s infinite;
+    
+    /* Sombra que cambia también */
+    text-shadow: 0 0 15px currentColor;
+}
+
+/* Nueva animación para cambio de colores del título */
+@keyframes rainbowTitle {
+    0% { 
+        color: #ff0000; /* Rojo */
+        text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+    }
+    16.66% { 
+        color: #add8e6; /* Azul pastel */
+        text-shadow: 0 0 15px #add8e6, 0 0 30px #add8e6;
+    }
+
+    83.33% { 
+        color: #ffc0cb; /* Rosa pastel */
+        text-shadow: 0 0 15px #ffc0cb, 0 0 30px #ffc0cb;
+    }
+    100% { 
+        color: #ff0000; /* Vuelve al rojo */
+        text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+    }
+}
+@keyframes pulseTitle {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05); 
+    }
+}
+
+.instructions {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #ffb6c1;
+    font-size: 1.2rem;
+    z-index: 30;
+    opacity: 0.7;
+}
+
+.confetti-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.heart-confetti {
+    font-size: 12px;
+    color: #ff2a6d;
+}
+
+.star-confetti {
+    background: #ffb6c1;
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+}
+
+.circle-confetti {
+    background: #ff69b4;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+}
+
+/* Animaciones */
+@keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulseText {
+    0%, 100% { 
+        transform: scale(1); 
+        text-shadow: 0 0 15px rgba(255, 42, 109, 0.8); 
+    }
+    50% { 
+        transform: scale(1.05); 
+        text-shadow: 0 0 25px rgba(255, 42, 109, 1); 
+    }
+}
+
+@keyframes meteorFall {
+    0% { 
+        transform: translateY(-100px) rotate(0deg) scale(0.5); 
+        opacity: 0.8; 
+    }
+    80% { 
+        opacity: 1; 
+        text-shadow: 0 0 20px rgba(255, 42, 109, 1);
+    }
+    100% { 
+        transform: translateY(100vh) rotate(10deg) scale(1.2); 
+        opacity: 0; 
+    }
+}
+
+@keyframes impact {
+    0% { transform: scale(0); opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes confettiExplode {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+        transform: translate(var(--dx), var(--dy)) rotate(180deg) scale(1);
+    }
+    100% {
+        transform: translate(var(--dx), var(--dy)) rotate(360deg) scale(0);
+        opacity: 0;
+    }
+}
+
+.floating-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0.5;
+    animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.music-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 42, 109, 0.9);
+    border-radius: 40px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(255, 42, 109, 0.5);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease-in-out;
+}
+
+.play-btn {
+    background: #ff4d94;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.3s;
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.8);
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+    background: #ff2a6d;
+}
+
+#volumeControl {
+    -webkit-appearance: none; /* Safari/Chrome */
+    appearance: none;         /* estándar */
+    width: 100px;
+    height: 6px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #ff4d94, #ff2a6d);
+    outline: none;
+    cursor: pointer;
+    transition: width 0.3s ease-in-out, background 0.3s;
+}
+
+#volumeControl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ff2a6d;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 42, 109, 0.8);
+    transition: transform 0.2s;
+}
+
+#volumeControl::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #ff2a6d;
+    border: 2px solid #fff;
+}
+
+#volumeControl::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ff2a6d;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 42, 109, 0.8);
+    transition: transform 0.2s;
+}
+
+#volumeControl::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: #ff2a6d;
+    border: 2px solid #fff;
+}
+
+.pdf-btn {
+    position: fixed;
+    bottom: 20px; /* 👈 ahora está abajo */
+    right: 20px;  /* 👈 pegado a la derecha */
+    z-index: 2000;
+    background: rgba(255, 42, 109, 0.9);
+    padding: 10px 18px;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(255, 42, 109, 0.5);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease-in-out;
+}
+
+.pdf-btn a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.pdf-btn:hover {
+    transform: scale(1.1);
+    background: #ff2a6d;
+}
+
+/* Botón de Propuesta */
+.proposal-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2000;
+    background: rgba(255, 42, 109, 0.9);
+    padding: 10px 18px;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(255, 42, 109, 0.5);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease-in-out;
+}
+
+.proposal-btn button {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.proposal-btn:hover {
+    transform: scale(1.1);
+    background: #ff2a6d;
+}
+
+/* Modal de Propuesta - FONDO NEGRO CON ESTRELLAS */
+.proposal-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    backdrop-filter: blur(3px); /* Efecto de desenfoque opcional */
+}
+
+.proposal-content {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff2a6d;
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 
+        0 0 30px rgba(255, 42, 109, 0.6),
+        inset 0 0 20px rgba(255, 42, 109, 0.1);
+    max-width: 600px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+}
+
+.proposal-content h2 {
+    color: #ff2a6d;
+    font-size: 2.8rem;
+    margin-bottom: 40px;
+    text-shadow: 
+        0 0 20px rgba(255, 42, 109, 0.8),
+        0 0 40px rgba(255, 42, 109, 0.4);
+    animation: pulseTitle 2s infinite;
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 2px;
+}
+
+.proposal-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.yes-btn, .no-btn {
+    padding: 18px 40px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border: 2px solid;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Arial Black', sans-serif;
+    min-width: 150px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.yes-btn {
+    background: rgba(255, 42, 109, 0.2);
+    color: #ff2a6d;
+    border-color: #ff2a6d;
+    box-shadow: 
+        0 0 20px rgba(255, 42, 109, 0.4),
+        inset 0 0 10px rgba(255, 42, 109, 0.1);
+}
+
+.yes-btn:hover {
+    transform: scale(1.1);
+    background: #ff2a6d;
+    color: white;
+    box-shadow: 
+        0 0 30px rgba(255, 42, 109, 0.8),
+        0 0 50px rgba(255, 42, 109, 0.4);
+}
+
+.no-btn {
+    background: rgba(100, 100, 100, 0.2);
+    color: #888;
+    border-color: #666;
+    transition: all 0.3s ease;
+}
+
+.no-btn:hover {
+    transform: scale(0.9) rotate(5deg);
+    background: rgba(255, 42, 109, 0.1);
+    color: #ff2a6d;
+    border-color: #ff2a6d;
+}
+
+.sad-message {
+    color: #ffb6c1;
+    font-size: 1.4rem;
+    margin-top: 25px;
+    text-shadow: 0 0 15px rgba(255, 182, 193, 0.6);
+    min-height: 40px;
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Mensaje de Celebración - MISMO ESTILO */
+.celebration-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 6000;
+    text-align: center;
+}
+
+.celebration-message h1 {
+    color: #ff2a6d;
+    font-size: 4.5rem;
+    margin-bottom: 30px;
+    text-shadow: 
+        0 0 30px rgba(255, 42, 109, 0.8),
+        0 0 60px rgba(255, 42, 109, 0.4);
+    animation: pulseTitle 1s infinite;
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 3px;
+}
+
+.celebration-message p {
+    color: #ffb6c1;
+    font-size: 2.2rem;
+    text-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 2px;
+}
+@keyframes wordAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px) rotate(180deg);
+    }
+}
+
+/* Media Queries para Responsive */
+@media (max-width: 768px) {
+    /* Ajustar el título para que no choque con el reproductor */
+    .title {
+        font-size: 2.5rem; /* Más pequeño en móvil */
+        top: 80px; /* Bajar para no chocar con el reproductor */
+        padding: 0 10px;
+    }
+
+    /* Reorganizar el reproductor de música */
+    .music-player {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .play-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+    }
+
+    #volumeControl {
+        width: 80px;
+    }
+
+    /* Reorganizar los botones inferiores para que no se tapen */
+.proposal-btn {
+    bottom: 90px;
+    left: 10px;
+    padding: 6px 10px; /* Más pequeño */
+}
+
+.pdf-btn {
+    bottom: 90px;
+    right: 10px;
+    padding: 6px 10px; /* Más pequeño */
+}
+
+.pdf-btn a,
+.proposal-btn button {
+    font-size: 0.8rem; /* Texto más pequeño */
+}
+    /* Ajustar las instrucciones */
+    .instructions {
+        bottom: 120px; /* Subir más para no tapar los botones */
+        font-size: 1rem;
+        padding: 0 20px;
+    }
+
+    /* Ajustar la barra de progreso */
+    .progress-container {
+        bottom: 140px;
+        width: 280px;
+    }
+
+    /* Ajustar el modal para móvil */
+    .proposal-content {
+        padding: 30px 20px;
+        width: 95%;
+    }
+
+    .proposal-content h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .proposal-buttons {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .yes-btn, .no-btn {
+        padding: 15px 30px;
+        font-size: 1.3rem;
+        min-width: 120px;
+    }
+
+    /* Mensaje de celebración */
+    .celebration-message h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .celebration-message p {
+        font-size: 1.6rem;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .title {
+        font-size: 2rem;
+        top: 70px;
+    }
+
+    .music-player {
+        padding: 6px 10px;
+    }
+
+    #volumeControl {
+        width: 60px;
+    }
+
+.proposal-btn {
+    bottom: 80px;
+    padding: 4px 8px; /* Aún más pequeño */
+}
+
+.pdf-btn {
+    bottom: 80px;
+    padding: 4px 8px; /* Aún más pequeño */
+}
+    .instructions {
+        bottom: 110px;
+        font-size: 0.9rem;
+    }
+}
+
+.close-celebration {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ff2a6d;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 7000;
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.6);
+}
+
+.close-celebration:hover {
+    background: #d40078;
+    transform: scale(1.1);
+}
+

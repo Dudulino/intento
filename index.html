@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Endures</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/icon.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="title">I LOVE YOU </div>
+    <div id="container"></div>
+    <div class="stars" id="stars"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="completion-message" id="completionMessage">Heart formed!</div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="instructions">Particles are joining to form a 3D heart...</div>
+
+    <!-- 🎵 Mini Reproductor de Música -->
+    <div class="music-player">
+        <button id="playPauseBtn" class="play-btn">▶</button>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.7">
+        <audio id="bgMusic" loop>
+            <source src="audio/mix1.mpeg" type="audio/mpeg">
+            Tu navegador no soporta el audio.
+        </audio>
+    </div>
+<!-- 📄 Botón para abrir el PDF -->
+<div class="pdf-btn">
+    <a href="pdf/cartita.pdf" target="_blank">Where I Dare Not Speak</a>
+</div>
+<!-- 💍 Botón de Propuesta -->
+<div class="proposal-btn">
+    <button id="proposalBtn">A Turning Point</button>
+</div>
+
+<!-- Modal de Propuesta -->
+<div id="proposalModal" class="proposal-modal">
+    <div class="proposal-content">
+        <h2>Would you walk with me through stories yet to be written?</h2>
+        <div class="proposal-buttons">
+            <button id="yesBtn" class="yes-btn">YES! 💕</button>
+            <button id="noBtn" class="no-btn">No...</button>
+        </div>
+        <div id="sadMessage" class="sad-message"></div>
+    </div>
+</div>
+
+<!-- Mensaje de Celebración -->
+<div id="celebrationMessage" class="celebration-message">
+    <button class="close-celebration">×</button>
+    <h1>The beginning of forever</h1>
+    <p>With your yes, even the stars seem to pause in awe</p>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
